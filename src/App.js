@@ -1,11 +1,17 @@
-import React,{memo} from "react";
+import React, { memo } from "react";
+//公共组件
+import { WYHeader, WYFooter } from '@/components'
+//前端路由
+import routes from '@/router'
+import { renderRoutes } from "react-router-config";
 
-const App = memo(() => {
+
+export default memo(function App() {
   return (
     <>
-      <h1>123</h1>
+      <WYHeader />
+      {renderRoutes(routes)}
+      <WYFooter />
     </>
   );
 })
-
-export default App;
