@@ -1,7 +1,7 @@
 export const headerLinks = [
   {
     title: "发现音乐",
-    link: "/discover"
+    link: "/"
   },
   {
     title: "我的音乐",
@@ -9,7 +9,7 @@ export const headerLinks = [
   },
   {
     title: "朋友",
-    link: "/friend"
+    link: "/friends"
   },
   {
     title: "商城",

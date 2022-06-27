@@ -1,6 +1,8 @@
-import Discover from "@/pages/Discover";
-import Mine from "@/pages/Mine";
-import Friends from "@/pages/Friends";
+import {
+  Discover,
+  Mine,
+  Friends
+} from '@/pages'
 
 const routes = [
   {

@@ -1,5 +1,5 @@
-import WYHeader from "./WYHeader";
-import WYFooter from "./WYFooter";
+import WYHeader from "./wyHeader/WYHeader";
+import WYFooter from "./wyFooter/WYFooter";
 
 export {
   WYHeader,
