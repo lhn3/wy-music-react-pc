@@ -2,7 +2,7 @@ import React, { memo, Fragment } from "react";
 import { FooterStyle } from "./style";
 import { footerLinks, footerImages } from "@/common/local-data";
 
-export default memo(function Footer(){
+export default memo(function WYFooter(){
   return (
     <FooterStyle>
       <div className="wrap-v2 content">

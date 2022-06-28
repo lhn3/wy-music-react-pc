@@ -8,8 +8,7 @@ import { headerLinks } from '@/common/local-data.js'
 import { SearchOutlined } from '@ant-design/icons';
 import { Input } from 'antd';
 
-export default memo(function Header(props){
-  console.log(props)
+export default memo(function WYHeader(){
   return (
     <HeaderStyle>
       <div className="content wrap-v1">
@@ -20,7 +19,7 @@ export default memo(function Header(props){
               headerLinks.map( (item, index) => {
                 return index < 3
                   ? <div className='select-item' key={index}>
-                    <NavLink exact to={item.link}>{item.title}
+                    <NavLink to={item.link}>{item.title}
                       <i className='sprite_01 icon' />
                     </NavLink>
                   </div>

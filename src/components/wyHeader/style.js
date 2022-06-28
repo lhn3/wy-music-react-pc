@@ -83,6 +83,7 @@ export const HeaderStyle = styled.div`
         height: 32px;
         line-height: 30px;
         text-align: center;
+        color: #ccc;
         border: 1px solid #666;
         cursor: pointer;
         border-radius: 16px;
