@@ -16,9 +16,9 @@ function saveBannersAction () {
 }
 
 //请求热门推荐的函数action
-function saveHotRecommendAction () {
+function saveHotRecommendAction (limit) {
   return async (dispatch, getState) => {
-    let res = await getHotRecommend(8)
+    let res = await getHotRecommend(limit)
     if (res.status === 200) dispatch(actionObj('saveHotRecommend',res.data.result))
   }
 }

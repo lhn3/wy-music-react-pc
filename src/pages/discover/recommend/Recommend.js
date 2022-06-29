@@ -1,6 +1,7 @@
 import React,{memo,useEffect} from "react";
 import {actionObj, saveBannersAction, saveHotRecommendAction} from "@/store/discoverStore/action";
 import {connect,useStore,useDispatch,useSelector,shallowEqual} from "react-redux";
+import {RecommendStyle} from './style'
 
 import {TopBanner} from "@/components";
 import HotRecommend from './cpns/hotRecommend/HotRecommend'
@@ -26,16 +27,24 @@ const Recommend = memo((props) => {
   },[dispatch])
 
   return (
-    <>
+    <RecommendStyle>
       {/*轮播图*/}
       <TopBanner banners={banners} />
-      {/*热门推荐*/}
-      <HotRecommend />
-      {/*新碟上架*/}
-      <NewDiscShelf />
-      {/*榜单*/}
-      <List />
-    </>
+
+      {/*主体内容，分左右*/}
+      <div className='recommend-main wrap-v2'>
+        <div className="recommend-left">
+          {/*热门推荐*/}
+          <HotRecommend />
+          {/*新碟上架*/}
+          <NewDiscShelf />
+          {/*榜单*/}
+          <List />
+        </div>
+        <div className="recommend-right">
+        </div>
+      </div>
+    </RecommendStyle>
   )
 })
 

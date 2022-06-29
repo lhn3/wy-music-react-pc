@@ -5,7 +5,7 @@ import {RcmdHeaderStyle} from './style'
 const RcmdHeader =  memo(function RcmdHeader(props){
   const {title, keyword, more} = props
   return (
-    <RcmdHeaderStyle className="wrap-v2 sprite_02">
+    <RcmdHeaderStyle className="sprite_02">
       <div className="left">
         <div className="title">{title}</div>
         <div className="keyword">
