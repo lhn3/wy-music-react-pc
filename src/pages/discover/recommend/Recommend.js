@@ -1,7 +1,11 @@
 import React,{memo,useEffect} from "react";
-import {actionObj, saveBannersAction} from "@/store/discoverStore/action";
+import {actionObj, saveBannersAction, saveHotRecommendAction} from "@/store/discoverStore/action";
 import {connect,useStore,useDispatch,useSelector,shallowEqual} from "react-redux";
+
 import {TopBanner} from "@/components";
+import HotRecommend from './cpns/hotRecommend/HotRecommend'
+import NewDiscShelf from "./cpns/newDiscShelf/NewDiscShelf";
+import List from "./cpns/list/List"
 
 const Recommend = memo((props) => {
   //使用hooks
@@ -23,7 +27,14 @@ const Recommend = memo((props) => {
 
   return (
     <>
+      {/*轮播图*/}
       <TopBanner banners={banners} />
+      {/*热门推荐*/}
+      <HotRecommend />
+      {/*新碟上架*/}
+      <NewDiscShelf />
+      {/*榜单*/}
+      <List />
     </>
   )
 })

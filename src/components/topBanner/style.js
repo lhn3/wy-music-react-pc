@@ -4,7 +4,6 @@ export const BannerStyle = styled.div`
   background: url(${props => props.bgImage}) center/6000px;
   .banner {
     height: 270px;
-    background-color: red;
     display: flex;
     position: relative;
   }

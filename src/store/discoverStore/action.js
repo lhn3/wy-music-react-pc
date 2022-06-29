@@ -1,4 +1,4 @@
-import {getBanners} from '@/services/recommend';
+import {getBanners, getHotRecommend} from '@/services/recommend';
 //返回对象的action
 let actionObj = (type, payload = null) => ({type,payload})
 
@@ -11,11 +11,20 @@ function saveBannersAction () {
      * 请求到数据后在通过dispatch发送action保存数据到redux中
      */
     let res = await getBanners()
-    if (res.status === 200) dispatch(actionObj('saveBanners',res.data.banners))
+    if (res.data.code === 200) dispatch(actionObj('saveBanners',res.data.banners))
+  }
+}
+
+//请求热门推荐的函数action
+function saveHotRecommendAction () {
+  return async (dispatch, getState) => {
+    let res = await getHotRecommend(8)
+    if (res.status === 200) dispatch(actionObj('saveHotRecommend',res.data.result))
   }
 }
 
 export {
   actionObj,
-  saveBannersAction
+  saveBannersAction,
+  saveHotRecommendAction
 }
