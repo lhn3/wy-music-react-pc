@@ -14,8 +14,11 @@ export function getHotRecommend(limit=null){
 }
 
 //获取新碟上架
-export function getNewDiscShelf(){
-  // return request.get()
+export function getNewDiscShelf(limit=null){
+  return request({
+    url:'/top/album',
+    params:{limit}
+  })
 }
 
 //获取榜单

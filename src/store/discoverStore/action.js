@@ -1,4 +1,4 @@
-import {getBanners, getHotRecommend} from '@/services/recommend';
+import {getBanners, getHotRecommend, getNewDiscShelf} from '@/services/recommend';
 //返回对象的action
 let actionObj = (type, payload = null) => ({type,payload})
 
@@ -23,8 +23,18 @@ function saveHotRecommendAction (limit) {
   }
 }
 
+//请求新碟上架的函数action
+function saveNewDiscShelfAction (limit) {
+  return async (dispatch, getState) => {
+    let res = await getNewDiscShelf(limit)
+    console.log(res)
+    if (res.status === 200) dispatch(actionObj('saveNewDiscShelf',res.data.albums))
+  }
+}
+
 export {
   actionObj,
   saveBannersAction,
-  saveHotRecommendAction
+  saveHotRecommendAction,
+  saveNewDiscShelfAction
 }

@@ -15,7 +15,8 @@ import { Map } from 'immutable'
 //recommend
 const recommendState = Map({
   banners:[],
-  hotRecommends:[]
+  hotRecommends:[],
+  newDiscShelfs:[]
 })
 
 export function recommendReducer(state=recommendState, action){
@@ -24,6 +25,8 @@ export function recommendReducer(state=recommendState, action){
       return state.set('banners',action.payload)
     case 'saveHotRecommend':
       return state.set('hotRecommends',action.payload)
+    case 'saveNewDiscShelf':
+      return state.set('newDiscShelfs',action.payload)
     default:
       return state
   }
