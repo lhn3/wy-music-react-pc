@@ -32,7 +32,7 @@ export default memo(function DiscBanner(props){
                   {
                     info.slice(page*5, (page+1)*5).map(item => {
                       return (
-                        <div key={item.id} className="ant-carousel">
+                        <div key={item.albumId} className="ant-carousel">
                           <DiscCover size={100} width={118} bgp={-570} item={item} />
                         </div>
                       )

@@ -8,6 +8,7 @@ export const DiscCoverStyle = styled.div`
     height: ${props => props.size + 10 + "px"};
     overflow: hidden;
     margin-top: 5px;
+    cursor: pointer;
     .img-box {
       width: ${props => props.size + "px"};
       height: ${props => props.size + "px"};
@@ -30,22 +31,29 @@ export const DiscCoverStyle = styled.div`
       position: absolute;
       top: ${props => props.size - 32 + "px"};
       left: ${props => props.size - 32 + "px"};
-      display: inline-block;
       width: 27px;
       height: 27px;
       background-position: -41px -21px;
+      display: none;
+    }
+  }
+  .album-image:hover {
+    .play {
+      display: block;
     }
   }
   .album-info {
     font-size: 12px;
     width: ${props => props.size};
     .name {
+      display: block;
       color: #000;
       white-space: nowrap;
       text-overflow: ellipsis;
       overflow: hidden;
     }
     .artist {
+      display: block;
       color: #666;
     }
   }

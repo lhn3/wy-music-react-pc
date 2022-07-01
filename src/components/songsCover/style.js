@@ -4,6 +4,7 @@ export const SongsCoverStyle = styled.div`
   width: 140px;
   margin: 20px ${props => (props.right || 0)} 20px 0;
   .cover-top {
+    cursor: pointer;
     position: relative;
     &>img {
       width: 140px;
@@ -45,11 +46,13 @@ export const SongsCoverStyle = styled.div`
     }
   }
   .cover-bottom {
+    display: block;
     font-size: 14px;
     color: #000;
     margin-top: 5px;
   }
   .cover-source {
+    display: block;
     color: #666;
   }
 `

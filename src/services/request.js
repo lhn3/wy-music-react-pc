@@ -6,7 +6,8 @@ import axios from "axios";
 
 //创建实例配置
 const instance = axios.create({
-  baseURL:'http://123.207.32.32:9001',
+  // baseURL:'http://123.207.32.32:9001',
+  baseURL:'http://127.0.0.1:3007',
   timeout:5000,
   headers:{}
 })

@@ -13,14 +13,14 @@ export default memo(function DiscCover(props){
     <DiscCoverStyle size={size} width={width} bgp={bgp}>
       <div className="album-image">
         <div className="img-box">
-          <img src={item.picUrl}/>
+          <img src={item.coverUrl}/>
         </div>
         <div className="cover sprite_covor" />
         <i className="play sprite_icon" />
       </div>
       <div className="album-info">
-        <div className="name text-nowrap">{item.name}</div>
-        <div className="artist text-nowrap">{item.artist.name}</div>
+        <a className="name text-nowrap">{item.albumName}</a>
+        <a className="artist text-nowrap">{item.artistName}</a>
       </div>
     </DiscCoverStyle>
   )

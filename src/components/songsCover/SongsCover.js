@@ -18,12 +18,12 @@ export default memo(function SongsCover(props){
           </div>
         </div>
       </div>
-      <div className="cover-bottom text-nowrap">
+      <a className="cover-bottom text-nowrap">
         {item.name}
-      </div>
-      <div className="cover-source">
+      </a>
+      <a className="cover-source">
         作者
-      </div>
+      </a>
     </SongsCoverStyle>
   )
 })

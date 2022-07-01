@@ -5,6 +5,7 @@ import RcmdHeader from "./rcmdHeader/RcmdHeader";
 import SongsCoverStyle from "./songsCover/SongsCover"
 import DiscBanner from "./discBanner/DiscBanner";
 import DiscCover from "./discCover/DiscCover";
+import ListTable from "./listTable/ListTable";
 
 export {
   WYHeader,
@@ -13,5 +14,6 @@ export {
   RcmdHeader,
   SongsCoverStyle,
   DiscBanner,
-  DiscCover
+  DiscCover,
+  ListTable
 }
