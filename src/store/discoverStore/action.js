@@ -1,4 +1,4 @@
-import {getBanners, getHotRecommend, getNewDiscShelf, getList} from '@/services/recommend';
+import {getBanners, getHotRecommend, getNewDiscShelf, getList, getResidentSinger, getPopularAnchor} from '@/services/recommend';
 //返回对象的action
 let actionObj = (type, payload = null) => ({type,payload})
 
@@ -43,10 +43,32 @@ function saveListAction () {
   }
 }
 
+//请求入驻歌手的函数action
+function saveResidentSingerAction (offset,limit) {
+  return async dispatch => {
+    let res = await getResidentSinger(offset,limit)
+    if (res.data.code === 200) {
+      dispatch(actionObj('saveResidentSinger', res.data.artists))
+    }
+  }
+}
+
+//请求热门主播的函数action
+function savePopularAnchorAction (limit) {
+  return async dispatch => {
+    let res = await getPopularAnchor(limit)
+    if (res.data.code === 200) {
+      dispatch(actionObj('savePopularAnchor', res.data.data.list))
+    }
+  }
+}
+
 export {
   actionObj,
   saveBannersAction,
   saveHotRecommendAction,
   saveNewDiscShelfAction,
-  saveListAction
+  saveListAction,
+  saveResidentSingerAction,
+  savePopularAnchorAction
 }

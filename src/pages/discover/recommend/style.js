@@ -10,7 +10,6 @@ export const RecommendStyle = styled.div`
     }
     .recommend-right{
       width: 250px;
-      background-color: #61dafb;
       border: 1px solid #d3d3d3;
       border-width: 0 1px;
     }

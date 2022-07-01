@@ -6,6 +6,9 @@ import {RecommendStyle} from './style'
 import {TopBanner} from "@/components";
 import HotRecommend from './cpns/hotRecommend/HotRecommend'
 import NewDiscShelf from "./cpns/newDiscShelf/NewDiscShelf";
+import LoginTip from "./cpns/loginTip/LoginTip";
+import ResidentSinger from "./cpns/residentSinger/ResidentSinger";
+import PopularAnchor from "./cpns/popularAnchor/PopularAnchor";
 import List from "./cpns/list/List"
 
 const Recommend = memo((props) => {
@@ -42,6 +45,12 @@ const Recommend = memo((props) => {
           <List />
         </div>
         <div className="recommend-right">
+          {/*登录提醒*/}
+          <LoginTip />
+          {/*入驻歌手*/}
+          <ResidentSinger />
+          {/*热门主播*/}
+          <PopularAnchor />
         </div>
       </div>
     </RecommendStyle>

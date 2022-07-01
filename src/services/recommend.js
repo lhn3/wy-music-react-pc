@@ -27,3 +27,19 @@ export function getList(){
     url:'/toplist',
   })
 }
+
+//获取入驻歌手
+export function getResidentSinger(offset,limit){
+  return request({
+    url:'/top/artists',
+    params:{offset,limit}
+  })
+}
+
+//获取热门主播
+export function getPopularAnchor(limit){
+  return request({
+    url:'/dj/toplist/hours',
+    params:{limit}
+  })
+}
