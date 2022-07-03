@@ -25,7 +25,7 @@ export default memo(function PopularAnchor(){
             <div className="anchor" key={item.id}>
               <img className="avatar" src={item.avatarUrl} />
               <div className="info">
-                <span className="name">{item.nickName}</span>
+                <span className="name text-nowrap">{item.nickName}</span>
                 {
                   item.avatarDetail ? <img src={item.avatarDetail.identityIconUrl} className="icon" /> : null
                 }

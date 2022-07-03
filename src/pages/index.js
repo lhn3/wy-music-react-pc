@@ -7,6 +7,7 @@ import Artist from "./discover/artist/Artist";
 import Album from "./discover/album/Album";
 import Mine from "./mine/Mine";
 import Friends from "./friends/Friends";
+import PlayerBar from "./player/PlayerBar"
 
 export {
   Discover,
@@ -18,5 +19,7 @@ export {
   Album,
 
   Mine,
-  Friends
+  Friends,
+
+  PlayerBar
 }
