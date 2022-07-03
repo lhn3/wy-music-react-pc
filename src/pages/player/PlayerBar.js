@@ -1,4 +1,4 @@
-import React, {memo, useEffect, useState} from "react"
+import React, {memo, useEffect, useRef, useState, useCallback} from "react"
 import {useDispatch,useSelector,shallowEqual} from "react-redux";
 import {saveSongUrlAction} from "@/store/player/action"
 import {Slider} from "antd"
@@ -7,9 +7,20 @@ import {formatTime} from "@/utils/format";
 
 
 export default memo(function PlayerBar(){
+  //播放组件
+  const audioRef = useRef()
+  //播放组件显示隐藏
   const [isLock,setLock] = useState(true)
+  //是否播放按钮
   const [isPlay,setPlay] = useState(false)
+  //播放模式
   const [sequence,setSequence] = useState(3)
+  //播放当前时间
+  const [currentTime,setCurrentTime] = useState(0)
+  // 进度条的值
+  const [sliderValue,setSliderValue] = useState(0)
+  //进度条是否正在被修改
+  const [isChangeSlider,setIsChangeSlider] = useState(false)
 
   const dispatch = useDispatch()
   const {songUrl,dt,imgUrl,songName,artName} = useSelector(state => ({
@@ -20,10 +31,40 @@ export default memo(function PlayerBar(){
     artName: state.player.get("artName")
   }),shallowEqual)
 
-  //请求播放信息
+  //请求播放信息/url/歌词
   useEffect(() => {
     dispatch(saveSongUrlAction(1824045033))
+    //设置播放路径
+    audioRef.current.src = songUrl
   },[dispatch])
+
+  //点击按钮开始或暂停播放
+  const playOrPause = () => {
+    isPlay ? audioRef.current.pause() : audioRef.current.play()
+    setPlay(!isPlay)
+  }
+
+  //设置当前播放时间和进度条
+  const timeUpdate = (e) => {
+    //进度条在被手动修改的时候不进行时间和进度条的自动更新
+    if (!isChangeSlider){
+      setCurrentTime(e.target.currentTime * 1000)
+      setSliderValue(Math.floor(currentTime / dt * 100))
+    }
+  }
+
+  //拖拽进度条时
+  const changeSlider = useCallback((e) => {
+    setIsChangeSlider(true)
+    setSliderValue(e)
+    setCurrentTime(e / 100 * dt)
+  },[dt])
+
+  //进度条修改结束时
+  const afterChangeSlider = useCallback((e) => {
+    audioRef.current.currentTime = (e / 100 * dt / 1000)
+    setIsChangeSlider(false)
+  },[])
 
   //修改播放模式
   const changeLoop = () => {
@@ -41,7 +82,7 @@ export default memo(function PlayerBar(){
           {/*左边上一首下一首*/}
           <div className="control">
             <div className="prev sprite_player" />
-            <div className="play sprite_player" onClick={e => setPlay(!isPlay)} />
+            <div className="play sprite_player" onClick={e => playOrPause()} />
             <div className="next sprite_player" />
           </div>
           {/*中间进度条信息*/}
@@ -54,9 +95,9 @@ export default memo(function PlayerBar(){
               </div>
               {/*进度条*/}
               <div className="progress">
-                <Slider defaultValue={30} />
+                <Slider value={sliderValue} onChange={e => changeSlider(e)} onAfterChange={e => afterChangeSlider(e)} />
                 <div className="time">
-                  <span className="now-time">00:00</span>
+                  <span className="now-time">{formatTime(currentTime)}</span>
                   <span className="divider">/</span>
                   <span className="now-time">{formatTime(dt)}</span>
                 </div>
@@ -81,6 +122,8 @@ export default memo(function PlayerBar(){
       <div className="lock sprite_player">
         <div className="lock-icon sprite_player" onClick={e => setLock(!isLock)} />
       </div>
+
+      <audio ref={audioRef} onTimeUpdate={e => timeUpdate(e)}></audio>
     </PlayerBarStyle>
   )
 })
