@@ -64,7 +64,7 @@ export default memo(function PlayerBar(){
   const afterChangeSlider = useCallback((e) => {
     audioRef.current.currentTime = (e / 100 * dt / 1000)
     setIsChangeSlider(false)
-  },[])
+  },[dt])
 
   //修改播放模式
   const changeLoop = () => {
