@@ -1,19 +1,20 @@
 import React, {memo} from "react";
 import {ListTableStyle} from "./style";
 import {useDispatch} from "react-redux";
-import {saveSongUrlAction, saveSongLyric} from "@/store/player/action"
+import {saveAddSongAction} from "@/store/player/action"
 
 export default memo(function ListTable(props){
   const { listInfo, songList } = props
   const dispatch = useDispatch()
 
   //播放并添加播放列表
-  const addAndPlaySong = (item) => {
-    console.log(item)
+  const addAndPlaySong = (songInfo) => {
+    dispatch(saveAddSongAction(songInfo,true))
+    //执行播放
   }
   //添加播放列表
   const addSong = (songInfo) => {
-    dispatch(saveSongUrlAction(songInfo))
+    dispatch(saveAddSongAction(songInfo,false))
   }
   return (
     <ListTableStyle>

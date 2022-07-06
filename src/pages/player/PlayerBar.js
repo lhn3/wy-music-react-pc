@@ -1,6 +1,6 @@
 import React, {memo, useEffect, useRef, useState, useCallback} from "react"
 import {useDispatch,useSelector,shallowEqual} from "react-redux";
-import {saveSongUrlAction, saveSongLyric} from "@/store/player/action"
+import {saveSongLyric} from "@/store/player/action"
 import {Slider} from "antd"
 import {PlayerBarStyle} from './style'
 import {formatTime} from "@/utils/format";
@@ -36,7 +36,6 @@ export default memo(function PlayerBar(props){
 
   //请求播放信息/url/歌词
   useEffect(() => {
-    // dispatch(saveSongUrlAction(1824045033))
     // dispatch(saveSongLyric(1824045033))
     //设置播放路径
     audioRef.current.src = songUrl
