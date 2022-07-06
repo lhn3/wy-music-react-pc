@@ -8,6 +8,7 @@ import Album from "./discover/album/Album";
 import Mine from "./mine/Mine";
 import Friends from "./friends/Friends";
 import PlayerBar from "./player/PlayerBar"
+import PlayerInfoPage from "./player/playerInfoPage/PlayerInfoPage";
 
 export {
   Discover,
@@ -21,5 +22,6 @@ export {
   Mine,
   Friends,
 
-  PlayerBar
+  PlayerBar,
+  PlayerInfoPage
 }

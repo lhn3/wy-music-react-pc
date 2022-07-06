@@ -21,6 +21,8 @@ const recommendState = Map({
   soaringList:{},
   newSongList:{},
   originalList:{},
+  //歌单
+  dailySongs:[],
   //入驻歌手
   residentSinger:[],
   //热门主播
@@ -45,6 +47,8 @@ export function recommendReducer(state=recommendState, action){
       return state.set('residentSinger',action.payload)
     case 'savePopularAnchor':
       return state.set('popularAnchor',action.payload)
+    case 'saveDailySongs':
+      return state.set('dailySongs',action.payload)
     default:
       return state
   }

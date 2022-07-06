@@ -14,17 +14,31 @@ import { Map } from 'immutable'
 
 //player
 const playerState = Map({
-  songUrl:"",
-  dt:"180000",
-  imgUrl:'https://p2.music.126.net/me6QV0CallEOlOP6Zb0b3w==/109951165770805050.jpg?param=34y34',
-  songName:'再见莫妮卡',
-  artName: '彭席彦/Franky弗兰奇'
+  songInfo: {
+    id:null,
+    songUrl:"",
+    dt:"",
+    imgUrl:'',
+    songName:'',
+    artName: '',
+  },
+  songLyric:[],
+  currentIndex: null,
+  playlist: []
 })
 
 export function playerReducer(state=playerState, action){
   switch (action.type){
-    case 'saveSongUrl':
-      return state.set('songUrl',action.payload)
+    case 'saveSongInfo':
+      return state.set('songInfo',action.payload)
+    case 'saveSongLyric':
+      return state.set('songLyric',action.payload)
+    case 'savePlaylist':
+      return state.set('playlist',[...state.get('playlist'),action.payload])
+    case 'changePlaylist':
+      return state.set('playlist',action.payload)
+    case 'saveCurrentIndex':
+      return state.set('currentIndex',action.payload)
     default:
       return state
   }

@@ -8,6 +8,7 @@ import {
   Djradio,
   Artist,
   Album,
+  PlayerInfoPage,
 
   Mine,
   Friends
@@ -59,6 +60,11 @@ const routes = [
         path: "/discover/album",
         exact: true,
         component:Album
+      },
+      {
+        path: "/discover/song",
+        exact: true,
+        component:PlayerInfoPage
       },
     ]
   },

@@ -28,6 +28,13 @@ export function getList(){
   })
 }
 
+//获取每日推荐
+export function getDailySongs(){
+  return request({
+    url:'/personalized/newsong?limit=30',
+  })
+}
+
 //获取入驻歌手
 export function getResidentSinger(offset,limit){
   return request({

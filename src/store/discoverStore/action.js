@@ -1,4 +1,4 @@
-import {getBanners, getHotRecommend, getNewDiscShelf, getList, getResidentSinger, getPopularAnchor} from '@/services/recommend';
+import {getBanners, getHotRecommend, getNewDiscShelf, getList, getResidentSinger, getPopularAnchor, getDailySongs} from '@/services/recommend';
 //返回对象的action
 let actionObj = (type, payload = null) => ({type,payload})
 
@@ -35,11 +35,13 @@ function saveNewDiscShelfAction (limit) {
 function saveListAction () {
   return async dispatch => {
     let res = await getList()
+    let dailySongs = await getDailySongs()
     if (res.data.code === 200) {
       dispatch(actionObj('saveSoaringList', res.data.list[0]))
       dispatch(actionObj('saveNewSongList', res.data.list[1]))
       dispatch(actionObj('saveOriginalList', res.data.list[2]))
     }
+    if (res.data.code === 200) dispatch(actionObj('saveDailySongs',dailySongs.data.result))
   }
 }
 

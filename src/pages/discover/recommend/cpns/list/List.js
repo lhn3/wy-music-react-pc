@@ -7,10 +7,11 @@ import {RcmdHeader, ListTable} from "@/components"
 
 export default memo(function NewDiscShelf(props){
   const dispatch = useDispatch()
-  const {soaringList,newSongList,originalList} = useSelector((state) => ({
+  const {soaringList,newSongList,originalList,dailySongs} = useSelector((state) => ({
     soaringList: state.recommend.get('soaringList'),
     newSongList: state.recommend.get('newSongList'),
-    originalList: state.recommend.get('originalList')
+    originalList: state.recommend.get('originalList'),
+    dailySongs: state.recommend.get('dailySongs')
   }),shallowEqual)
 
   //获取飙升版，新歌榜，原创榜action
@@ -22,9 +23,9 @@ export default memo(function NewDiscShelf(props){
     <ListStyle>
       <RcmdHeader title="榜单" more={true} />
       <div className="top">
-        <ListTable listInfo={soaringList} />
-        <ListTable listInfo={newSongList} />
-        <ListTable listInfo={originalList} />
+        <ListTable listInfo={soaringList} songList={dailySongs.slice(0,10)} />
+        <ListTable listInfo={newSongList} songList={dailySongs.slice(10,20)} />
+        <ListTable listInfo={originalList} songList={dailySongs.slice(20,30)} />
       </div>
     </ListStyle>
   )

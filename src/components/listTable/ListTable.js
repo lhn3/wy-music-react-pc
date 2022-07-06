@@ -1,21 +1,20 @@
 import React, {memo} from "react";
 import {ListTableStyle} from "./style";
+import {useDispatch} from "react-redux";
+import {saveSongUrlAction, saveSongLyric} from "@/store/player/action"
 
 export default memo(function ListTable(props){
-  const { listInfo } = props
-  let songLis = [
-    {id:1, name:'孤勇者'},
-    {id:2, name:'玫瑰花的葬礼'},
-    {id:3, name:'断桥残雪'},
-    {id:4, name:'江南'},
-    {id:5, name:'长安别'},
-    {id:6, name:'Cheap Thrills'},
-    {id:7, name:'我爱你不问归期'},
-    {id:8, name:'我的楼兰'},
-    {id:9, name:'窗'},
-    {id:10, name:'Right Now'}
-  ]
+  const { listInfo, songList } = props
+  const dispatch = useDispatch()
 
+  //播放并添加播放列表
+  const addAndPlaySong = (item) => {
+    console.log(item)
+  }
+  //添加播放列表
+  const addSong = (songInfo) => {
+    dispatch(saveSongUrlAction(songInfo))
+  }
   return (
     <ListTableStyle>
       <div className="header">
@@ -33,15 +32,15 @@ export default memo(function ListTable(props){
       </div>
       <div className="list">
         {
-          songLis.map(item => {
+          songList.map((item, index) => {
             return (
               <div key={item.id} className="list-item">
-                <div className="rank">{item.id}</div>
+                <div className="rank">{index+1}</div>
                 <div className="info">
                   <a className="name text-nowrap">{item.name}</a>
                   <div className="operate">
-                    <i className="btn play sprite_02" />
-                    <i className="btn addto sprite_icon2" />
+                    <i className="btn play sprite_02" onClick={e => addAndPlaySong(item)} />
+                    <i className="btn addto sprite_icon2" onClick={e => addSong(item)} />
                     <i className="btn favor sprite_02" />
                   </div>
                 </div>

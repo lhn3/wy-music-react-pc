@@ -1,12 +1,13 @@
 import React, {memo, useEffect, useRef, useState, useCallback} from "react"
 import {useDispatch,useSelector,shallowEqual} from "react-redux";
-import {saveSongUrlAction} from "@/store/player/action"
+import {saveSongUrlAction, saveSongLyric} from "@/store/player/action"
 import {Slider} from "antd"
 import {PlayerBarStyle} from './style'
 import {formatTime} from "@/utils/format";
+import {NavLink} from "react-router-dom";
 
 
-export default memo(function PlayerBar(){
+export default memo(function PlayerBar(props){
   //播放组件
   const audioRef = useRef()
   //播放组件显示隐藏
@@ -23,23 +24,30 @@ export default memo(function PlayerBar(){
   const [isChangeSlider,setIsChangeSlider] = useState(false)
 
   const dispatch = useDispatch()
-  const {songUrl,dt,imgUrl,songName,artName} = useSelector(state => ({
-    songUrl: state.player.get("songUrl"),
-    dt: state.player.get("dt"),
-    imgUrl: state.player.get("imgUrl"),
-    songName: state.player.get("songName"),
-    artName: state.player.get("artName")
+  const {songUrl,dt,imgUrl,songName,artName,currentIndex,playlist} = useSelector(state => ({
+    songUrl: state.player.get("songInfo").songUrl,
+    dt: state.player.get("songInfo").dt,
+    imgUrl: state.player.get("songInfo").imgUrl,
+    songName: state.player.get("songInfo").songName,
+    artName: state.player.get("songInfo").artName,
+    currentIndex: state.player.get("currentIndex"),
+    playlist: state.player.get("playlist")
   }),shallowEqual)
 
   //请求播放信息/url/歌词
   useEffect(() => {
-    dispatch(saveSongUrlAction(1824045033))
+    // dispatch(saveSongUrlAction(1824045033))
+    // dispatch(saveSongLyric(1824045033))
     //设置播放路径
     audioRef.current.src = songUrl
-  },[dispatch])
+  },[songUrl])
 
   //点击按钮开始或暂停播放
   const playOrPause = () => {
+    if (!songUrl) {
+      alert('暂无歌曲！')
+      return
+    }
     isPlay ? audioRef.current.pause() : audioRef.current.play()
     setPlay(!isPlay)
   }
@@ -87,7 +95,9 @@ export default memo(function PlayerBar(){
           </div>
           {/*中间进度条信息*/}
           <div className="play-info">
-            <img src={imgUrl} className="image" />
+            <NavLink to={{pathname: '/discover/song',search:'?id=1824045033'}}>
+              <img src={imgUrl} className="image" />
+            </NavLink>
             <div className="info">
               <div className="song">
                 <a>{songName}</a>
@@ -112,7 +122,7 @@ export default memo(function PlayerBar(){
             <div className="btn right sprite_player">
               <div className="btn volume sprite_player" />
               <div className="btn loop sprite_player" onClick={e => changeLoop()} />
-              <div className="btn playlist sprite_player" />
+              <div className="btn playlist sprite_player">{playlist.length}</div>
             </div>
           </div>
         </div>
