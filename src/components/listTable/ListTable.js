@@ -1,17 +1,24 @@
-import React, {memo} from "react";
+import React, {memo, useEffect} from "react";
 import {ListTableStyle} from "./style";
-import {useDispatch} from "react-redux";
-import {saveAddSongAction} from "@/store/player/action"
+import {useDispatch,useSelector} from "react-redux";
+import {saveAddSongAction,actionObj} from "@/store/player/action"
 
 export default memo(function ListTable(props){
   const { listInfo, songList } = props
   const dispatch = useDispatch()
+  const {audioRef} = useSelector((state)=>({
+    audioRef: state.player.get('audioRef'),
+  }))
 
   //播放并添加播放列表
   const addAndPlaySong = (songInfo) => {
+    audioRef.current.pause()
     dispatch(saveAddSongAction(songInfo,true))
-    //执行播放
+    setTimeout(()=>{
+      audioRef.current.play()
+    },100)
   }
+
   //添加播放列表
   const addSong = (songInfo) => {
     dispatch(saveAddSongAction(songInfo,false))

@@ -13,10 +13,13 @@ function saveAddSongAction (songInfo,toPlay) {
       let newPlaylist = [...playlist]
       newPlaylist.splice(isSame,1)
       dispatch(actionObj('changePlaylist',[playlist[isSame], ...newPlaylist]))
+
       //是否播放此歌曲
       if (toPlay){
         dispatch(actionObj('saveCurrentIndex',0))
         dispatch(actionObj('saveSongInfo',playlist[isSame]))
+        dispatch(actionObj('saveIsPlay',false))
+        dispatch(actionObj('saveIsPlay',true))
       }
     } else {
       //没找到再发送请求
@@ -26,7 +29,7 @@ function saveAddSongAction (songInfo,toPlay) {
         const info = {
           id: songInfo.id,
           songUrl: res.data.data[0].url,
-          dt:songInfo.song.sqMusic.playTime,
+          dt:songInfo.song.duration,
           imgUrl:songInfo.picUrl,
           songName:songInfo.name,
           artName: songInfo.song.artists[0].name,
@@ -36,13 +39,19 @@ function saveAddSongAction (songInfo,toPlay) {
           dispatch(actionObj('saveSongInfo',info))
           dispatch(actionObj('saveCurrentIndex',0))
           dispatch(actionObj('savePlaylist',info))
+          //是否播放此歌曲
+          if (toPlay){
+            dispatch(actionObj('saveIsPlay',false))
+            dispatch(actionObj('saveIsPlay',true))
+          }
         } else {
           //是否播放此歌曲
           if (toPlay){
             dispatch(actionObj('saveCurrentIndex',playlist.length))
             dispatch(actionObj('saveSongInfo',info))
+            dispatch(actionObj('saveIsPlay',false))
+            dispatch(actionObj('saveIsPlay',true))
           }
-
           dispatch(actionObj('savePlaylist',info))
         }
       }
@@ -63,6 +72,7 @@ function saveSongLyric (id) {
   }
 }
 export {
+  actionObj,
   saveAddSongAction,
   saveSongLyric
 }

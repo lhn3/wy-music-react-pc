@@ -143,6 +143,12 @@ export const PlayerBarStyle = styled.div`
           .playlist {
             width: 59px;
             background-position: -42px -68px;
+            .playlist-length{
+              color: #ffffff;
+              line-height: 25px;
+              text-align: right;
+              padding-right: 20px;
+            }
           }
         }
       }

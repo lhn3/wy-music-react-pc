@@ -1,4 +1,6 @@
 // 播放量过滤
+import instance from "../services/request";
+
 function formatCount(cou) {
     if (cou == null) return ''
     let count = parseInt(cou)
@@ -21,6 +23,7 @@ function leftZero(num) {
 }
 function formatTime(time) {
     let second = Math.ceil(parseInt(time) / 1000)
+    if (isNaN(second)) return '00:00'
     if (second >= 3600) {
         return leftZero(Math.floor(second / 3600)) +':'+
         leftZero(Math.floor((second % 3600) / 60))+':'+

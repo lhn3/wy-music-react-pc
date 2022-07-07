@@ -31,7 +31,7 @@ export function getList(){
 //获取每日推荐
 export function getDailySongs(){
   return request({
-    url:'/personalized/newsong?limit=30',
+    url:'/personalized/newsong?limit=29',
   })
 }
 

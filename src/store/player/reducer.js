@@ -14,21 +14,28 @@ import { Map } from 'immutable'
 
 //player
 const playerState = Map({
+  isPlay: false,
+  audioRef: null,
   songInfo: {
-    id:null,
-    songUrl:"",
-    dt:"",
+    id:0,
+    songUrl:'',
+    dt:0,
     imgUrl:'',
     songName:'',
     artName: '',
   },
   songLyric:[],
-  currentIndex: null,
-  playlist: []
+  currentIndex: 0,
+  playlist: [],
+  sequence:3 //播放模式：1随机，2单曲，3顺序
 })
 
 export function playerReducer(state=playerState, action){
   switch (action.type){
+    case 'saveIsPlay':
+      return state.set('isPlay',action.payload)
+    case 'saveAudioRef':
+      return state.set('audioRef',action.payload)
     case 'saveSongInfo':
       return state.set('songInfo',action.payload)
     case 'saveSongLyric':
@@ -39,6 +46,8 @@ export function playerReducer(state=playerState, action){
       return state.set('playlist',action.payload)
     case 'saveCurrentIndex':
       return state.set('currentIndex',action.payload)
+    case 'saveSequence':
+      return state.set('sequence',action.payload)
     default:
       return state
   }

@@ -31,7 +31,7 @@ function saveNewDiscShelfAction (limit) {
   }
 }
 
-//请求榜单的函数action
+//请求榜单歌单的函数action
 function saveListAction () {
   return async dispatch => {
     let res = await getList()
@@ -41,7 +41,16 @@ function saveListAction () {
       dispatch(actionObj('saveNewSongList', res.data.list[1]))
       dispatch(actionObj('saveOriginalList', res.data.list[2]))
     }
-    if (res.data.code === 200) dispatch(actionObj('saveDailySongs',dailySongs.data.result))
+    if (res.data.code === 200) {
+      let songList = dailySongs.data.result
+      songList.unshift({
+        id: 521416693,
+        song: {duration:183000,artists:[{name:'Martin Garrix / David Guetta / Jamie Scott / Romy Dya'}]},
+        picUrl:'http://p2.music.126.net/bDdwz0zd-BGYpel1QEU2RA==/109951165983886039.jpg?param=130y130',
+        name:'So Far Away',
+      })
+      dispatch(actionObj('saveDailySongs',dailySongs.data.result))
+    }
   }
 }
 
