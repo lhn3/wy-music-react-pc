@@ -1,4 +1,5 @@
 import {getSongUrl, getSongLyric} from '@/services/player';
+import filterLyric from '@/utils/filterLyric'
 //返回对象的action
 let actionObj = (type, payload = null) => ({type,payload})
 
@@ -18,8 +19,8 @@ function saveAddSongAction (songInfo,toPlay) {
       if (toPlay){
         dispatch(actionObj('saveCurrentIndex',0))
         dispatch(actionObj('saveSongInfo',playlist[isSame]))
-        dispatch(actionObj('saveIsPlay',false))
         dispatch(actionObj('saveIsPlay',true))
+        dispatch(saveSongLyric(songInfo.id))
       }
     } else {
       //没找到再发送请求
@@ -39,9 +40,9 @@ function saveAddSongAction (songInfo,toPlay) {
           dispatch(actionObj('saveSongInfo',info))
           dispatch(actionObj('saveCurrentIndex',0))
           dispatch(actionObj('savePlaylist',info))
+          dispatch(saveSongLyric(songInfo.id))
           //是否播放此歌曲
           if (toPlay){
-            dispatch(actionObj('saveIsPlay',false))
             dispatch(actionObj('saveIsPlay',true))
           }
         } else {
@@ -49,8 +50,8 @@ function saveAddSongAction (songInfo,toPlay) {
           if (toPlay){
             dispatch(actionObj('saveCurrentIndex',playlist.length))
             dispatch(actionObj('saveSongInfo',info))
-            dispatch(actionObj('saveIsPlay',false))
             dispatch(actionObj('saveIsPlay',true))
+            dispatch(saveSongLyric(songInfo.id))
           }
           dispatch(actionObj('savePlaylist',info))
         }
@@ -63,12 +64,10 @@ function saveAddSongAction (songInfo,toPlay) {
 function saveSongLyric (id) {
   return async (dispatch, getState) => {
     let res = await getSongLyric(id)
-    console.log(res)
-    // if (res.data.code === 200) {
-    //   let lyric = {}
-    //   res.data.lrc.lyric
-    //   dispatch(actionObj('saveSongUrl',lyric))
-    // }
+    if (res.data.code === 200) {
+      let lyric = filterLyric(res.data.lrc.lyric)
+      dispatch(actionObj('saveSongLyric',lyric))
+    }
   }
 }
 export {

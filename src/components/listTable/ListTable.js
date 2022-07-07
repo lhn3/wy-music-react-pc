@@ -16,7 +16,7 @@ export default memo(function ListTable(props){
     dispatch(saveAddSongAction(songInfo,true))
     setTimeout(()=>{
       audioRef.current.play()
-    },100)
+    },300)
   }
 
   //添加播放列表

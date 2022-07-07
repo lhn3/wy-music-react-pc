@@ -22,9 +22,11 @@ export default memo(function PlayerBar(props){
   const [sliderValue,setSliderValue] = useState(0)
   //进度条是否正在被修改
   const [isChangeSlider,setIsChangeSlider] = useState(false)
+  //展示的歌词
+  const [showLyric,setShowLyric] = useState('')
 
   const dispatch = useDispatch()
-  const {isPlay,id,songUrl,dt,imgUrl,songName,artName,currentIndex,playlist,sequence} = useSelector(state => ({
+  const {isPlay,id,songUrl,dt,imgUrl,songName,artName,currentIndex,playlist,sequence,songLyric} = useSelector(state => ({
     isPlay: state.player.get("isPlay"),
     id:state.player.get('songInfo').id,
     songUrl: state.player.get("songInfo").songUrl,
@@ -34,7 +36,8 @@ export default memo(function PlayerBar(props){
     artName: state.player.get("songInfo").artName,
     currentIndex: state.player.get("currentIndex"),
     playlist: state.player.get("playlist"),
-    sequence: state.player.get("sequence")
+    sequence: state.player.get("sequence"),
+    songLyric: state.player.get('songLyric')
   }),shallowEqual)
 
   //监听是否播放
@@ -58,9 +61,6 @@ export default memo(function PlayerBar(props){
 
   //重新播放新歌曲
   const rePlayNewSong = () => {
-    audioRef.current.pause()
-    setCurrentTime(0)
-    setSliderValue(0)
     audioRef.current.src = songUrl
     audioRef.current.currentTime = 0
     setTimeout(()=>{
@@ -88,13 +88,13 @@ export default memo(function PlayerBar(props){
      * 修改播放索引，播放信息（songInfo），播放时间，进度条
      */
     let newCurrentIndex = null
-    if (sequence == 1){
+    if (sequence === 1){
       newCurrentIndex = Math.floor(Math.random()*playlist.length)
       if (newCurrentIndex === currentIndex) {
         changeSong(tag)
         return
       }
-    } else if (sequence == 2){
+    } else if (sequence === 2){
       newCurrentIndex = currentIndex
     } else {
       newCurrentIndex = currentIndex + tag
@@ -105,6 +105,7 @@ export default memo(function PlayerBar(props){
       }
     }
     console.log('newCurrentIndex:',newCurrentIndex,'----------------')
+    dispatch(saveSongLyric(playlist[newCurrentIndex].id))
     dispatch(actionObj('saveCurrentIndex', newCurrentIndex))
     dispatch(actionObj('saveSongInfo', playlist[newCurrentIndex]))
     //播放新歌曲
@@ -135,12 +136,26 @@ export default memo(function PlayerBar(props){
 
   //修改播放模式
   const changeLoop = () => {
-    if (sequence != 3) {
+    if (sequence !== 3) {
       dispatch(actionObj('saveSequence',sequence+1))
     } else {
       dispatch(actionObj('saveSequence',1))
     }
   }
+
+  //展示歌词
+  useEffect(()=>{
+    if (!songLyric) return
+    songLyric.find((item,index)=>{
+      if (songLyric[index+1] === undefined){
+        setShowLyric(songLyric[index].lyric)
+        return true
+      } else if(item.time <= currentTime && currentTime < songLyric[index+1].time) {
+        setShowLyric(item.lyric)
+        return true
+      }
+    })
+  },[currentTime])
   return (
     <PlayerBarStyle isPlay={isPlay} isLock={isLock} sequence={sequence}>
       <div className="main sprite_player">
@@ -193,7 +208,10 @@ export default memo(function PlayerBar(props){
       <div className="lock sprite_player">
         <div className="lock-icon sprite_player" onClick={e => setLock(!isLock)} />
       </div>
-
+      {/*歌词*/}
+      {
+        showLyric ? <div className="lyric text-nowrap">{showLyric}</div> : null
+      }
       <audio ref={audioRef} onTimeUpdate={e => timeUpdate(e)} onEnded={e => changeSong(1)} />
     </PlayerBarStyle>
   )
