@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, {memo, Suspense} from "react";
 import {DiscoverStyle, TopMenu,} from "./style";
 import {dicoverMenu} from "@/common/local-data";
 import {NavLink} from "react-router-dom";
@@ -21,7 +21,9 @@ export default memo(function Discover(props){
           }
         </TopMenu>
       </div>
-      {renderRoutes(props.route.children)}
+      <Suspense fallback={<div>page loading</div>}>
+        {renderRoutes(props.route.children)}
+      </Suspense>
     </DiscoverStyle>
   )
 })

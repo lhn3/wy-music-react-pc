@@ -5,6 +5,7 @@ import {Slider} from "antd"
 import {PlayerBarStyle} from './style'
 import {formatTime} from "@/utils/format";
 import {NavLink} from "react-router-dom";
+import {log} from "@craco/craco/lib/logger";
 
 
 export default memo(function PlayerBar(props){
@@ -145,16 +146,24 @@ export default memo(function PlayerBar(props){
 
   //展示歌词
   useEffect(()=>{
-    if (!songLyric) return
-    songLyric.find((item,index)=>{
-      if (songLyric[index+1] === undefined){
-        setShowLyric(songLyric[index].lyric)
-        return true
-      } else if(item.time <= currentTime && currentTime < songLyric[index+1].time) {
-        setShowLyric(item.lyric)
-        return true
-      }
-    })
+    if (!songLyric[0]) return
+    /**
+     * 时间小于第一句歌词的时间展示第一句歌词
+     * 时间大于最后一句歌词展示最后一句歌词
+     * 其他情况展示时间的上一句歌词
+     */
+    if (currentTime < songLyric[0].time){
+      setShowLyric(songLyric[0].lyric)
+    } else if (currentTime >= songLyric[songLyric.length - 1].time) {
+      setShowLyric(songLyric[songLyric.length - 1].lyric)
+    } else {
+      songLyric.find((item,index)=>{
+        if(item.time <= currentTime && currentTime < songLyric[index+1].time) {
+          setShowLyric(item.lyric)
+          return true
+        }
+      })
+    }
   },[currentTime])
   return (
     <PlayerBarStyle isPlay={isPlay} isLock={isLock} sequence={sequence}>
@@ -169,7 +178,7 @@ export default memo(function PlayerBar(props){
           </div>
           {/*中间进度条信息*/}
           <div className="play-info">
-            <NavLink to={{pathname: '/discover/song',search:'?id=1824045033'}}>
+            <NavLink to={{pathname: '/discover/song',search:`?id=${id}`}}>
               <img src={imgUrl} className="image" />
             </NavLink>
             <div className="info">

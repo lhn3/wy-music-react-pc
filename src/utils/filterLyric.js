@@ -22,7 +22,7 @@ export default function filterLyric(lyString) {
     // console.log(strList)
     let strList = item.split(']')
     let timeList = strList[0].split('[')[1].split(':')
-    let time = Number(timeList[0]) * 60 + Number(timeList[1]) * 1000
+    let time = (Number(timeList[0]) * 60 + Number(timeList[1])) * 1000
     let lyric = strList[1].trim()
     lyricList.push({time,lyric})
   })

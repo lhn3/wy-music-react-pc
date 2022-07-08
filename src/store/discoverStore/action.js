@@ -49,6 +49,12 @@ function saveListAction () {
         picUrl:'http://p2.music.126.net/bDdwz0zd-BGYpel1QEU2RA==/109951165983886039.jpg?param=130y130',
         name:'So Far Away',
       })
+      songList.unshift({
+        id: 1400612768,
+        song: {duration:243000,artists:[{name:'阿YueYue'}]},
+        picUrl:'http://p2.music.126.net/eU-EIle7VE4RWCeM5-m8bA==/109951164463226103.jpg?param=130y130',
+        name:'Reset',
+      })
       dispatch(actionObj('saveDailySongs',dailySongs.data.result))
     }
   }

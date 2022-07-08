@@ -205,13 +205,14 @@ export const PlayerBarStyle = styled.div`
     bottom: 60px;
     left: 50%;
     transform: translate(-50%);
-    background-color: rgba(0, 0, 0, .5);
+    background-color: rgba(0, 0, 0, .4);
     border-radius: 5px;
     text-align: center;
     line-height: 60px;
     font-size: 24px;
     font-weight: bold;
     padding: 0 20px;
+    //color: #c10c0c;
     color: #7bcba6;
   }
 `

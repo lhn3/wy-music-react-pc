@@ -1,18 +1,30 @@
 import { Redirect } from "react-router-dom";
-import React from "react";
-import {
-  Discover,
-  Recommend,
-  Ranking,
-  Songs,
-  Djradio,
-  Artist,
-  Album,
-  PlayerInfoPage,
+import React,{lazy} from "react";
+// import {
+//   Discover,
+//   Recommend,
+//   Ranking,
+//   Songs,
+//   Djradio,
+//   Artist,
+//   Album,
+//   PlayerInfoPage,
+//
+//   Mine,
+//   Friends
+// } from '@/pages'
 
-  Mine,
-  Friends
-} from '@/pages'
+//路由懒加载
+const Discover  = lazy(() => import('../pages/discover/Discover'))
+const Recommend = lazy(() => import('../pages/discover/recommend/Recommend'))
+const Ranking = lazy(() => import('../pages/discover/ranking/Ranking'))
+const Songs = lazy(() => import('../pages/discover/songs/Songs'))
+const Djradio = lazy(() => import('../pages/discover/djradio/Djradio'))
+const Artist = lazy(() => import('../pages/discover/artist/Artist'))
+const Album = lazy(() => import('../pages/discover/album/Album'))
+const PlayerInfoPage = lazy(() => import('../pages/player/playerInfoPage/PlayerInfoPage'))
+const Mine = lazy(() => import('../pages/mine/Mine'))
+const Friends = lazy(() => import('../pages/friends/Friends'))
 
 const routes = [
   {
